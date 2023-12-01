@@ -1,0 +1,42 @@
+// @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+body {
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: rgba(0, 0, 0, 0.87);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+html *::-webkit-scrollbar {
+  width: 2px;
+}
+html *::-webkit-scrollbar-thumb {
+  background: #7a7a9d;
+  border-radius: 2px;
+}
+html *::-webkit-scrollbar-track {
+  background: #dde1ef;
+  border-radius: 2px;
+}
