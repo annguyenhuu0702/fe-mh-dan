@@ -41,7 +41,7 @@ const FormDepartment: React.FC = () => {
 
   return (
     <section>
-      <h1>Form thêm khoa</h1>
+      <h1>Form {id ? "sửa" : "thêm"} khoa</h1>
       <Form
         name="login"
         labelCol={{ span: 8 }}

@@ -26,8 +26,8 @@ function getItem(
 }
 
 const items = [
-  getItem("Phiếu ghi nhận", "1", <FormOutlined />),
-  getItem("Quản lý khoa", "sub2", <TeamOutlined />, [
+  getItem("Phiếu ghi nhận", "/abc", <FormOutlined />),
+  getItem("Quản lý khoa", "/sub2", <TeamOutlined />, [
     getItem("Danh sách khoa", "/department"),
     getItem("Danh sách nhân viên", "/employee"),
   ]),
