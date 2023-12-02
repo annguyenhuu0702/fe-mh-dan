@@ -38,7 +38,7 @@ const ListDepartment = () => {
   ];
 
   return (
-    <div>
+    <main>
       <div>code nút thêm vô đây để navigate ra trang thêm</div>
       <DynamicTable
         dataSource={departments?.data.departments}
@@ -47,7 +47,7 @@ const ListDepartment = () => {
           navigate(`/department/${record.id}`);
         }}
       />
-    </div>
+    </main>
   );
 };
 

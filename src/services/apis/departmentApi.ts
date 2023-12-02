@@ -11,7 +11,19 @@ const create = async (data: DepartmentDto) => {
   return response;
 };
 
+const update = async (id: string, data: DepartmentDto) => {
+  const response = await axiosInstance.put(`/department/update/${id}`, data);
+  return response;
+};
+
+const getById = async (id: string) => {
+  const response = await axiosInstance.get(`/department/${id}`);
+  return response;
+};
+
 export const departmentApi = {
   getAll,
   create,
+  getById,
+  update,
 };

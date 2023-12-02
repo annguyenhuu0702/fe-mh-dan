@@ -3,11 +3,13 @@ import React, { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import { TRoute } from "../types/route";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Department from "../pages/Department/Department";
-import FormDepartment from "../pages/Department/FormDepartment";
 
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Employee = lazy(() => import("../pages/Employee/Employee"));
+const FormEmployee = lazy(() => import("../pages/Employee/FormEmployee"));
+const Department = lazy(() => import("../pages/Department/Department"));
+const FormDepartment = lazy(() => import("../pages/Department/FormDepartment"));
 
 const routes: TRoute[] = [
   {
@@ -19,6 +21,23 @@ const routes: TRoute[] = [
     path: "/",
     element: Dashboard,
     layout: DashboardLayout,
+  },
+  {
+    path: "/employee",
+    element: Employee,
+    layout: DashboardLayout,
+    subRoutes: [
+      {
+        path: "/add",
+        element: FormEmployee,
+        layout: DashboardLayout,
+      },
+      {
+        path: "/:id",
+        element: FormEmployee,
+        layout: DashboardLayout,
+      },
+    ],
   },
   {
     path: "/department",
