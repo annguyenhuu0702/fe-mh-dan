@@ -12,16 +12,16 @@ const FormDepartment: React.FC = () => {
   const [form] = Form.useForm();
 
   // fetch department detail using userQuery
-  const { data: departmentDetail } = useQuery({
-    queryKey: ["departmentDetail", id],
+  const { data: department } = useQuery({
+    queryKey: ["department", id],
     queryFn: () => departmentApi.getById(id as string),
     enabled: !isNil(id),
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialValues = {
-    name: departmentDetail?.data?.name ?? "",
-    code: departmentDetail?.data?.code ?? "",
+    name: department?.data?.name ?? "",
+    code: department?.data?.code ?? "",
   };
 
   const createDepartmentMutation = useMutation({
@@ -85,7 +85,7 @@ const FormDepartment: React.FC = () => {
       <h1>Form {id ? "sửa" : "thêm"} khoa</h1>
       <Form
         form={form}
-        name="login"
+        name="department"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         style={{ maxWidth: 600 }}
