@@ -10,6 +10,8 @@ const Employee = lazy(() => import("../pages/Employee/Employee"));
 const FormEmployee = lazy(() => import("../pages/Employee/FormEmployee"));
 const Department = lazy(() => import("../pages/Department/Department"));
 const FormDepartment = lazy(() => import("../pages/Department/FormDepartment"));
+const Problem = lazy(() => import("../pages/Problem/Problem"));
+const FormProblem = lazy(() => import("../pages/Problem/FormProblem"));
 
 const routes: TRoute[] = [
   {
@@ -52,6 +54,23 @@ const routes: TRoute[] = [
       {
         path: "/:id",
         element: FormDepartment,
+        layout: DashboardLayout,
+      },
+    ],
+  },
+  {
+    path: "/problem",
+    element: Problem,
+    layout: DashboardLayout,
+    subRoutes: [
+      {
+        path: "/add",
+        element: FormProblem,
+        layout: DashboardLayout,
+      },
+      {
+        path: "/:id",
+        element: FormProblem,
         layout: DashboardLayout,
       },
     ],
