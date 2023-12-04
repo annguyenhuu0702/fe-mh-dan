@@ -1,0 +1,24 @@
+.rs-layout {
+  background: #f3f3f3;
+
+  .rs-layout-content {
+    max-height: 100vh;
+    overflow: auto;
+  }
+
+  .rs-layout-row {
+    display: flex;
+    flex-direction: column;
+
+    .rs-layout-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: white;
+    }
+
+    .rs-layout-children {
+      padding: 0 16px;
+    }
+  }
+}

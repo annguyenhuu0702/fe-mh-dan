@@ -1,0 +1,42 @@
+.rs-header {
+  .rs-header-setting,
+  .rs-header-notifi {
+    .ant-btn-default {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .rs-header-profile {
+    width: 40px;
+    height: 40px;
+    .rs-header-profile-avatar {
+      cursor: pointer;
+      .ant-avatar {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.rs-header-popover {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 8px;
+
+  .rs-header-popover-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.6rem;
+    color: var(--black-40);
+    font-family: "Plus Jakarta Sans";
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

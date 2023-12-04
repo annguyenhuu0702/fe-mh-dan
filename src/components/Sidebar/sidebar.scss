@@ -1,0 +1,64 @@
+.rs-layout {
+  .rs-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    background: white;
+    border-right: 1px solid red;
+    height: 100vh;
+    overflow: auto;
+
+    .rs-sidebar-logo {
+      display: flex;
+      align-items: center;
+      width: 134px;
+      height: 36px;
+      cursor: pointer;
+      padding-left: 26px;
+    }
+
+    .rs-sidebar-menu {
+      padding-top: 16px;
+      border-inline-end: none;
+
+      .ant-menu-submenu {
+        .ant-menu-inline {
+          background: transparent;
+        }
+      }
+
+      .ant-menu-submenu-selected {
+        .ant-menu-title-content {
+          color: red;
+        }
+        .ant-menu-submenu-arrow {
+          color: red;
+        }
+      }
+
+      .ant-menu-item {
+        background: white;
+        margin: 0;
+        padding: 24px 0;
+        .ant-menu-title-content {
+          font-size: 1.6rem;
+          font-family: "Plus Jakarta Sans";
+        }
+
+        .ant-menu-item-icon {
+          width: 2rem;
+        }
+      }
+      .ant-menu-item-selected {
+        font-weight: 600;
+
+        .ant-menu-title-content {
+          color: red;
+        }
+      }
+      .ant-menu-item-selected > .ant-menu-item-icon {
+        filter: opacity(0.5) drop-shadow(0 0 0 rgb(2, 12, 198));
+      }
+    }
+  }
+}
