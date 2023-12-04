@@ -27,9 +27,6 @@ const Header = () => {
                       </div>
                     </Link>
                     <div className="rs-header-popover-item">Đăng xuất</div>
-                    <div className="rs-header-popover-item">Hỗ trợ từ RISA</div>
-                    <div className="rs-header-popover-item">Chính sách</div>
-                    <div className="rs-header-popover-item">FAQ</div>
                   </div>
                 }
               >

@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "antd/dist/reset.css";
 import "./styles/index.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Authentication from "./components/Authentication/Authentication.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +24,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ConfigProvider locale={vi_VN}>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools />
+          <Authentication />
           <App />
         </QueryClientProvider>
       </ConfigProvider>
