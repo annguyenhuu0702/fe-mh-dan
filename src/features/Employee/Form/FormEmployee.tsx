@@ -86,7 +86,7 @@ const FormEmployee: React.FC = () => {
         });
       }
     },
-    [createAdminUserMutation, id, navigate, updateAdminUsertMutation]
+    [id, user?.data?.id]
   );
 
   const onFinishFailed = (errorInfo: any) => {

@@ -17,6 +17,7 @@ export default function Authentication(
   const [token, setToken] = useState<string | undefined>(
     Cookies.get("accessToken")
   );
+  console.log("🚀 ~ file: Authentication.tsx:20 ~ token:", token);
 
   useEffect(() => {
     if (!token) {
@@ -30,11 +31,7 @@ export default function Authentication(
         }
       }
     }
-  }, [navigate, token]);
+  }, [token]);
 
-  return (
-    <>
-      <div>{children}</div>
-    </>
-  );
+  return <main>{children}</main>;
 }
