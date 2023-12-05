@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { DateTime } from "luxon"; // Import từ Luxon
 import { useNavigate } from "react-router-dom";
 import DynamicTable from "../../../components/DynamicTable";
 import { problemApi } from "../../../services/apis/problem";
 import { Button } from "antd";
 import { VerticalAlignBottomOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const ListProblem = () => {
   const navigate = useNavigate();
   const { data: problems } = useQuery({
     queryKey: ["problems"],
-    queryFn: () => problemApi.getAll(), 
+    queryFn: () => problemApi.getAll(),
   });
 
   const columns = [
@@ -49,7 +49,7 @@ const ListProblem = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => (
-        <span>{DateTime.fromISO(createdAt).toLocaleString()}</span>
+        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
       ),
     },
   ];
@@ -57,11 +57,17 @@ const ListProblem = () => {
   return (
     <main>
       <div style={{ padding: "20px 0", float: "right" }}>
-        <Button type="primary" style={{height: "35px"}}> Tìm kiếm</Button>
-        <Button type="primary" style={{margin: "0 30px", height: "35px"}}>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Tìm kiếm
+        </Button>
+        <Button type="primary" style={{ margin: "0 30px", height: "35px" }}>
           <VerticalAlignBottomOutlined /> Excel
         </Button>
-        <Button type="primary" style={{height: "35px"}}> Thêm sự cố</Button>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Thêm sự cố
+        </Button>
       </div>
       <DynamicTable
         dataSource={problems?.data.problems}

@@ -67,7 +67,7 @@ const FormDepartment: React.FC = () => {
         });
       }
     },
-    [createDepartmentMutation, id, navigate, updateDepartmentMutation]
+    [id]
   );
 
   const onFinishFailed = (errorInfo: any) => {

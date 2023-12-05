@@ -15,28 +15,25 @@ const FormLogin: React.FC = () => {
     },
   });
 
-  const handleFinish = useCallback(
-    (values: LoginDto) => {
-      const formData = {
-        username: values.username,
-        password: values.password,
-      };
-      loginMutation.mutate(formData, {
-        onSuccess: (res) => {
-          const { token } = res.data;
-          Cookies.set("accessToken", token);
-          navigate("/");
-        },
-        onError: (error: any) => {
-          const { data } = error;
-          if (data?.response?.data?.statusCode === 401) {
-            message.error("Lỗi rồi");
-          }
-        },
-      });
-    },
-    [loginMutation, navigate]
-  );
+  const handleFinish = useCallback((values: LoginDto) => {
+    const formData = {
+      username: values.username,
+      password: values.password,
+    };
+    loginMutation.mutate(formData, {
+      onSuccess: (res) => {
+        const { token } = res.data;
+        Cookies.set("accessToken", token);
+        navigate("/");
+      },
+      onError: (error: any) => {
+        const { data } = error;
+        if (data?.response?.data?.statusCode === 401) {
+          message.error("Lỗi rồi");
+        }
+      },
+    });
+  }, []);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);

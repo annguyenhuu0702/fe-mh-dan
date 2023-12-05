@@ -30,11 +30,7 @@ export default function Authentication(
         }
       }
     }
-  }, [navigate, token]);
+  }, [token]);
 
-  return (
-    <>
-      <div>{children}</div>
-    </>
-  );
+  return <main>{children}</main>;
 }

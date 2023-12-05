@@ -24,8 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ConfigProvider locale={vi_VN}>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools />
-          <Authentication />
-          <App />
+          <Authentication>
+            <App />
+          </Authentication>
         </QueryClientProvider>
       </ConfigProvider>
     </BrowserRouter>
