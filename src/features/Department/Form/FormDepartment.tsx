@@ -45,23 +45,23 @@ const FormDepartment: React.FC = () => {
       if (id) {
         updateDepartmentMutation.mutate(formData, {
           onSuccess: () => {
-            message.success("Cập nhật khoa thành công");
+            message.success("Cập nhật thành công");
             navigate("/department");
           },
           onError: () => {
-            message.error("Cập nhật khoa thất bại");
+            message.error("Cập nhật thất bại");
           },
         });
       } else {
         createDepartmentMutation.mutate(formData, {
           onSuccess: () => {
-            message.success("Tạo khoa thành công");
+            message.success("Tạo thành công");
             navigate("/department");
           },
           onError: (error: any) => {
             const { data } = error;
             if (data?.response?.data?.statusCode === 401) {
-              message.error("Lỗi rồi");
+              message.error("Lỗi rồi troioii");
             }
           },
         });
@@ -98,7 +98,7 @@ const FormDepartment: React.FC = () => {
         <Form.Item
           label="Tên khoa"
           name="name"
-          rules={[{ required: true, message: "Vui lòng nhập tên khoa" }]}
+          rules={[{ required: true, message: "Vui lòng nhập tên" }]}
         >
           <Input />
         </Form.Item>
@@ -106,7 +106,7 @@ const FormDepartment: React.FC = () => {
         <Form.Item
           label="Mã khoa"
           name="code"
-          rules={[{ required: true, message: "Vui lòng nhập mã khoa" }]}
+          rules={[{ required: true, message: "Vui lòng nhập mã" }]}
         >
           <Input />
         </Form.Item>

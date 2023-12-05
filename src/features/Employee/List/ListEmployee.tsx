@@ -3,6 +3,7 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import DynamicTable from "../../../components/DynamicTable";
 import { adminUserApi } from "../../../services/apis/adminUser";
+import { Button } from "antd";
 
 const ListEmployee = () => {
   const navigate = useNavigate();
@@ -13,14 +14,9 @@ const ListEmployee = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "Tên đăng nhập",
-      dataIndex: "userName",
-      key: "userName",
+      title: "Khoa",
+      dataIndex: "departmentName",
+      key: "departmentName",
     },
     {
       title: "Mã nhân viên",
@@ -33,9 +29,9 @@ const ListEmployee = () => {
       key: "fullName",
     },
     {
-      title: "Tên khoa",
-      dataIndex: "departmentName",
-      key: "departmentName",
+      title: "Tên đăng nhập",
+      dataIndex: "userName",
+      key: "userName",
     },
     {
       title: "Ngày tạo",
@@ -49,7 +45,16 @@ const ListEmployee = () => {
 
   return (
     <main>
-      <div>code nút thêm vô đây để navigate ra trang thêm</div>
+      <div style={{ padding: "20px 0", float: "right" }}>
+        <Button type="primary" style={{ height: "35px", marginRight: "30px" }}>
+          {" "}
+          Tìm kiếm
+        </Button>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Thêm nhân viên
+        </Button>
+      </div>
       <DynamicTable
         dataSource={adminUsers?.data.adminUsers}
         columns={columns}

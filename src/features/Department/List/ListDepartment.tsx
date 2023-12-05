@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import DynamicTable from "../../../components/DynamicTable";
 import { departmentApi } from "../../../services/apis/departmentApi";
 import { useNavigate } from "react-router-dom";
+import { Button } from "antd";
 import moment from "moment";
 
 const ListDepartment = () => {
@@ -13,19 +14,14 @@ const ListDepartment = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
       title: "Mã khoa",
       dataIndex: "code",
       key: "code",
+    },
+    {
+      title: "Tên khoa",
+      dataIndex: "name",
+      key: "name",
     },
     {
       title: "Ngày tạo",
@@ -39,7 +35,16 @@ const ListDepartment = () => {
 
   return (
     <main>
-      <div>code nút thêm vô đây để navigate ra trang thêm</div>
+      <div style={{ padding: "20px 0", float: "right" }}>
+        <Button type="primary" style={{ height: "35px", marginRight: "30px" }}>
+          {" "}
+          Tìm kiếm
+        </Button>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Thêm Khoa
+        </Button>
+      </div>
       <DynamicTable
         dataSource={departments?.data.departments}
         columns={columns}

@@ -34,8 +34,8 @@ const menuItems = [
     getItem("Danh sách nhân viên", "/employee"),
   ]),
   getItem("Báo cáo sự cố", "sub1", <FileSearchOutlined />, [
-    getItem("BC theo khoa", "/problem-report-department"),
-    getItem("BC theo lãnh vực", "/problem-report-industry"),
+    getItem("Báo cáo theo khoa", "/problem-report-department"),
+    getItem("Báo cáo theo lãnh vực", "/problem-report-industry"),
   ]),
   getItem("Thống kê", "/statistical", <BarChartOutlined />),
 ];
@@ -51,7 +51,7 @@ const Sidebar: React.FC = () => {
   );
 
   const handleBackHome = useCallback(() => {
-    navigate("/");
+    navigate("/problem");
   }, []);
 
   return (
@@ -64,7 +64,8 @@ const Sidebar: React.FC = () => {
       >
         <img
           style={{
-            height: "60px",
+            height: "120px",
+            paddingLeft: "52px",
           }}
           alt=""
           src="https://res.cloudinary.com/dtvgddjmz/image/upload/v1701245260/Ti%C3%AAu_%C4%91%E1%BB%81_Website_BV_16_-removebg-preview_yjlulq_uk19pi.png"

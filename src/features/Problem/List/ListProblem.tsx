@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import DynamicTable from "../../../components/DynamicTable";
 import { problemApi } from "../../../services/apis/problem";
+import { Button } from "antd";
+import { VerticalAlignBottomOutlined } from "@ant-design/icons";
 import moment from "moment";
 
 const ListProblem = () => {
@@ -54,7 +56,19 @@ const ListProblem = () => {
 
   return (
     <main>
-      <div>code nút thêm vô đây để navigate ra trang thêm</div>
+      <div style={{ padding: "20px 0", float: "right" }}>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Tìm kiếm
+        </Button>
+        <Button type="primary" style={{ margin: "0 30px", height: "35px" }}>
+          <VerticalAlignBottomOutlined /> Excel
+        </Button>
+        <Button type="primary" style={{ height: "35px" }}>
+          {" "}
+          Thêm sự cố
+        </Button>
+      </div>
       <DynamicTable
         dataSource={problems?.data.problems}
         columns={columns}

@@ -1,5 +1,6 @@
 import { Avatar, Popover, Row, Space } from "antd";
 import { Link } from "react-router-dom";
+import { UserOutlined } from "@ant-design/icons";
 import "./header.scss";
 
 const Header = () => {
@@ -11,8 +12,19 @@ const Header = () => {
           display: "flex",
           justifyContent: "space-between",
           padding: "0px 20px",
+          paddingTop: "5px",
+          alignItems: "center",
         }}
       >
+        <div>
+          <h2
+            style={{
+              paddingTop: "8px",
+            }}
+          >
+            Quản lý sự cố
+          </h2>
+        </div>
         <Space>
           <div className="rs-header-profile">
             <div className="rs-header-profile-avatar">
@@ -30,7 +42,11 @@ const Header = () => {
                   </div>
                 }
               >
-                <Avatar shape="square" />
+                <Avatar
+                  style={{ backgroundColor: "#87d068" }}
+                  size="large"
+                  icon={<UserOutlined />}
+                />
               </Popover>
             </div>
           </div>
