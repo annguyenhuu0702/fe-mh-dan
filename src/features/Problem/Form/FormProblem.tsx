@@ -14,7 +14,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { problemApi } from "../../../services/apis/problem";
 import { isNil, map } from "lodash";
 import { ProblemDto } from "../../../types/problem";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { adminUserApi } from "../../../services/apis/adminUser";
 import moment from "moment";
 const FormProblem = () => {
@@ -104,6 +104,20 @@ const FormProblem = () => {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  const checkRole = useMemo(() => {
+    if (
+      user?.data?.role === "superAdmin" ||
+      problem?.data?.adminUserId === user?.data?.id
+    ) {
+      return true;
+    }
+    return false;
+  }, [problem?.data?.adminUserId, user?.data?.id, user?.data?.role]);
+  console.log(
+    "🚀 ~ file: FormProblem.tsx:117 ~ checkRole ~ checkRole:",
+    checkRole
+  );
 
   useEffect(() => {
     if (initialValues) {
@@ -224,9 +238,15 @@ const FormProblem = () => {
         </Row>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            {id ? "Cập nhật" : "Thêm"}
-          </Button>
+          {id ? (
+            <Button type="primary" htmlType="submit" disabled={!checkRole}>
+              Sửa
+            </Button>
+          ) : (
+            <Button type="primary" htmlType="submit">
+              Thêm
+            </Button>
+          )}
         </Form.Item>
       </Form>
     </section>

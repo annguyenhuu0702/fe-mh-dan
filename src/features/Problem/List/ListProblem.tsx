@@ -33,16 +33,34 @@ const ListProblem = () => {
       title: "Ngày dự kiến",
       dataIndex: "processingDate",
       key: "processingDate",
+      render: (processingDate: string) => (
+        <span>{moment(processingDate).format("DD/MM/YYYY")}</span>
+      ),
     },
     {
-      title: "Thời gian xử lý",
-      dataIndex: "watingdate",
-      key: "watingdate",
+      title: "Thời gian xử lý (Ngày)",
+      dataIndex: "waitingDate",
+      key: "waitingDate",
     },
     {
       title: "Trạng thái",
       dataIndex: "status",
       key: "status",
+      render: (status: string) => {
+        let statusLabel = "";
+
+        switch (status) {
+          case "unprocessed":
+            statusLabel = "Chưa xử lý";
+            break;
+          case "processing":
+            statusLabel = "Đang xử lý";
+            break;
+          default:
+            statusLabel = "Đã xử lý";
+        }
+        return <span>{statusLabel}</span>;
+      },
     },
     {
       title: "Ngày tạo",
@@ -58,14 +76,18 @@ const ListProblem = () => {
     <main>
       <div style={{ padding: "20px 0", float: "right" }}>
         <Button type="primary" style={{ height: "35px" }}>
-          {" "}
           Tìm kiếm
         </Button>
         <Button type="primary" style={{ margin: "0 30px", height: "35px" }}>
           <VerticalAlignBottomOutlined /> Excel
         </Button>
-        <Button type="primary" style={{ height: "35px" }}>
-          {" "}
+        <Button
+          type="primary"
+          style={{ height: "35px" }}
+          onClick={() => {
+            navigate("/add");
+          }}
+        >
           Thêm sự cố
         </Button>
       </div>
@@ -73,7 +95,7 @@ const ListProblem = () => {
         dataSource={problems?.data.problems}
         columns={columns}
         onRow={(record) => {
-          navigate(`/problem/${record.id}`);
+          navigate(`/${record.id}`);
         }}
       />
     </main>

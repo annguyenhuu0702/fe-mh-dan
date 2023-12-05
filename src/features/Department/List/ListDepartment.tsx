@@ -37,11 +37,15 @@ const ListDepartment = () => {
     <main>
       <div style={{ padding: "20px 0", float: "right" }}>
         <Button type="primary" style={{ height: "35px", marginRight: "30px" }}>
-          {" "}
           Tìm kiếm
         </Button>
-        <Button type="primary" style={{ height: "35px" }}>
-          {" "}
+        <Button
+          type="primary"
+          style={{ height: "35px" }}
+          onClick={() => {
+            navigate("/department/add");
+          }}
+        >
           Thêm Khoa
         </Button>
       </div>
