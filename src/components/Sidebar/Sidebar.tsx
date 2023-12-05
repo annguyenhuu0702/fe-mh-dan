@@ -6,9 +6,10 @@ import {
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import MenuItem from "antd/es/menu/MenuItem";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sidebar.scss";
+import useAuth from "../../hooks/useAuth";
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
@@ -27,7 +28,7 @@ function getItem(
   } as MenuItem;
 }
 
-const menuItems = [
+const adminItem = [
   getItem("Phiếu ghi nhận", "/", <FormOutlined />),
   getItem("Quản lý khoa", "/sub2", <TeamOutlined />, [
     getItem("Danh sách khoa", "/department"),
@@ -40,8 +41,18 @@ const menuItems = [
   getItem("Thống kê", "/statistical", <BarChartOutlined />),
 ];
 
+const employeeItems = [getItem("Phiếu ghi nhận", "/", <FormOutlined />)];
+
 const Sidebar: React.FC = () => {
+  const user = useAuth();
   const navigate = useNavigate();
+
+  const menuItems = useMemo(() => {
+    if (user.user?.role === "superAdmin") {
+      return adminItem;
+    }
+    return employeeItems;
+  }, [user]);
 
   const handleContent = useCallback(
     (item: any) => {
