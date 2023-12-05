@@ -3,10 +3,10 @@ import { Button, Col, Form, Input, Row, Select, message } from "antd";
 import { isNil, map } from "lodash";
 import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { departmentApi } from "../../../services/apis/departmentApi";
-import { AdminUserDto } from "../../../types/adminUser";
 import { adminUserApi } from "../../../services/apis/adminUser";
 import { authApi } from "../../../services/apis/authApi";
+import { departmentApi } from "../../../services/apis/departmentApi";
+import { AdminUserDto } from "../../../types/adminUser";
 
 const FormEmployee: React.FC = () => {
   const [form] = Form.useForm();
@@ -55,14 +55,24 @@ const FormEmployee: React.FC = () => {
       const formData = {
         fullName: values.fullName,
         code: values.code,
-        password: "",
+        password: values.password,
         departmentId: values.departmentId,
         role: values.role,
         userName: values.userName,
         adminId: user?.data?.id,
       };
+
+      const formUpdateData = {
+        fullName: values.fullName,
+        code: values.code,
+        departmentId: values.departmentId,
+        role: values.role,
+        userName: values.userName,
+        adminId: user?.data?.id,
+      };
+
       if (id) {
-        updateAdminUsertMutation.mutate(formData, {
+        updateAdminUsertMutation.mutate(formUpdateData, {
           onSuccess: () => {
             message.success("Cập nhật nhân viên thành công");
             navigate("/employee");
@@ -145,15 +155,17 @@ const FormEmployee: React.FC = () => {
               <Input />
             </Form.Item>
           </Col>
-          <Col xl={12}>
-            <Form.Item
-              label="Mật khẩu"
-              name="password"
-              rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
-            >
-              <Input.Password />
-            </Form.Item>
-          </Col>
+          {!id && (
+            <Col xl={12}>
+              <Form.Item
+                label="Mật khẩu"
+                name="password"
+                rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}
+              >
+                <Input.Password />
+              </Form.Item>
+            </Col>
+          )}
           <Col xl={12}>
             <Form.Item
               label="Khoa"
