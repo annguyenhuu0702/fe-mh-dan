@@ -1,12 +1,11 @@
 type ProblemDto = {
-  adminUserId: number;
+  adminUserId?: number;
   title: string;
   industry: string;
   contact: string;
   status: string;
   processingDate: string;
   note: string;
-  watingdate: string;
 };
 
 export type { ProblemDto };

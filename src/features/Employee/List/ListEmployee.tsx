@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { DateTime } from "luxon"; // Import từ Luxon
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import DynamicTable from "../../../components/DynamicTable";
 import { adminUserApi } from "../../../services/apis/adminUser";
@@ -10,10 +10,6 @@ const ListEmployee = () => {
     queryKey: ["adminUsers"],
     queryFn: () => adminUserApi.getAll(),
   });
-  console.log(
-    "🚀 ~ file: ListEmployee.tsx:13 ~ ListEmployee ~ adminUsers:",
-    adminUsers
-  );
 
   const columns = [
     {
@@ -46,7 +42,7 @@ const ListEmployee = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => (
-        <span>{DateTime.fromISO(createdAt).toLocaleString()}</span>
+        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
       ),
     },
   ];

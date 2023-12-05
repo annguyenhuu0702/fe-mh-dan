@@ -16,7 +16,7 @@ const FormEmployee: React.FC = () => {
     queryKey: ["getProfile"],
     queryFn: () => authApi.getProfile(),
   });
-  // fetch department detail using userQuery
+
   const { data: adminUser } = useQuery({
     queryKey: ["adminUser", id],
     queryFn: () => adminUserApi.getById(id as string),

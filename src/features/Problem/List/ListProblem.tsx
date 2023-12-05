@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { DateTime } from "luxon"; // Import từ Luxon
 import { useNavigate } from "react-router-dom";
 import DynamicTable from "../../../components/DynamicTable";
 import { problemApi } from "../../../services/apis/problem";
+import moment from "moment";
 
 const ListProblem = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const ListProblem = () => {
       dataIndex: "createdAt",
       key: "createdAt",
       render: (createdAt: string) => (
-        <span>{DateTime.fromISO(createdAt).toLocaleString()}</span>
+        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
       ),
     },
   ];
