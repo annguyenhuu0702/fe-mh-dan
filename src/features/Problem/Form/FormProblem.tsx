@@ -77,7 +77,7 @@ const FormProblem = () => {
         updateProblemtMutation.mutate(formData, {
           onSuccess: () => {
             message.success("Cập nhật phiếu thành công");
-            navigate("/problem");
+            navigate("/");
           },
           onError: () => {
             message.error("Cập nhật phiếu thất bại");
@@ -87,7 +87,7 @@ const FormProblem = () => {
         createProblemMutation.mutate(formData, {
           onSuccess: () => {
             message.success("Tạo phiếu thành công");
-            navigate("/problem");
+            navigate("/");
           },
           onError: (error: any) => {
             const { data } = error;

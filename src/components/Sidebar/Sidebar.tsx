@@ -28,7 +28,7 @@ function getItem(
 }
 
 const menuItems = [
-  getItem("Phiếu ghi nhận", "/problem", <FormOutlined />),
+  getItem("Phiếu ghi nhận", "/", <FormOutlined />),
   getItem("Quản lý khoa", "/sub2", <TeamOutlined />, [
     getItem("Danh sách khoa", "/department"),
     getItem("Danh sách nhân viên", "/employee"),

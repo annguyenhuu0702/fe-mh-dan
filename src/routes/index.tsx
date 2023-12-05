@@ -53,7 +53,7 @@ const routes: TRoute[] = [
     ],
   },
   {
-    path: "/problem",
+    path: "/",
     element: Problem,
     layout: DashboardLayout,
     subRoutes: [
