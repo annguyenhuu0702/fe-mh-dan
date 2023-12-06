@@ -24,7 +24,7 @@ const getById = async (id: string) => {
 
 const problemReport = async (payload: ProblemQueryParams) => {
   const response = await axiosInstance.get(
-    `/problem/report?${qs.stringify(payload)}`
+    `/problem/report/department-industry?${qs.stringify(payload)}`
   );
   return response;
 };
