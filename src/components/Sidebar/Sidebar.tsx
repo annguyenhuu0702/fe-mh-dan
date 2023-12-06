@@ -10,6 +10,7 @@ import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "./sidebar.scss";
 import useAuth from "../../hooks/useAuth";
+import { ROLE } from "../../constants/role";
 type MenuItem = Required<MenuProps>["items"][number];
 
 function getItem(
@@ -48,7 +49,7 @@ const Sidebar: React.FC = () => {
   const navigate = useNavigate();
 
   const menuItems = useMemo(() => {
-    if (user.user?.role === "superAdmin") {
+    if (user.user?.role === ROLE.SUPER_ADMIN) {
       return adminItem;
     }
     return employeeItems;

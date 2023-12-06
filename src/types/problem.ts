@@ -1,5 +1,6 @@
 type ProblemDto = {
   adminUserId?: number;
+  departmentId?: number;
   title: string;
   industry: string;
   contact: string;

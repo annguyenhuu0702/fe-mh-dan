@@ -17,6 +17,9 @@ import { ProblemDto } from "../../../types/problem";
 import { useCallback, useEffect, useMemo } from "react";
 import { adminUserApi } from "../../../services/apis/adminUser";
 import moment from "moment";
+import { problemIndustries } from "../../../assets/data";
+import { departmentApi } from "../../../services/apis/departmentApi";
+import { ROLE } from "../../../constants/role";
 const FormProblem = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
@@ -29,7 +32,13 @@ const FormProblem = () => {
   const { data: adminUsers } = useQuery({
     queryKey: ["adminUsers"],
     queryFn: () => adminUserApi.getAll(),
-    enabled: user?.data?.role === "superAdmin",
+    enabled: user?.data?.role === ROLE.SUPER_ADMIN,
+  });
+
+  const { data: departments } = useQuery({
+    queryKey: ["departments"],
+    queryFn: () => departmentApi.getAll(),
+    enabled: user?.data?.role === ROLE.SUPER_ADMIN,
   });
 
   const { data: problem } = useQuery({
@@ -59,6 +68,7 @@ const FormProblem = () => {
     processingDate: moment(problem?.data?.processingDate) ?? moment(),
     note: problem?.data?.note ?? "",
     adminUserId: problem?.data?.adminUserId ?? "",
+    departmentId: problem?.data?.departmentId ?? "",
   };
 
   const handleFinish = useCallback(
@@ -71,6 +81,7 @@ const FormProblem = () => {
         processingDate: values.processingDate,
         note: values.note,
         adminUserId: values.adminUserId ?? user?.data?.id,
+        departmentId: values.departmentId ?? user?.data?.departmentId,
       };
 
       if (id) {
@@ -107,17 +118,13 @@ const FormProblem = () => {
 
   const checkRole = useMemo(() => {
     if (
-      user?.data?.role === "superAdmin" ||
+      user?.data?.role === ROLE.SUPER_ADMIN ||
       problem?.data?.adminUserId === user?.data?.id
     ) {
       return true;
     }
     return false;
   }, [problem?.data?.adminUserId, user?.data?.id, user?.data?.role]);
-  console.log(
-    "🚀 ~ file: FormProblem.tsx:117 ~ checkRole ~ checkRole:",
-    checkRole
-  );
 
   useEffect(() => {
     if (initialValues) {
@@ -156,7 +163,17 @@ const FormProblem = () => {
               name="industry"
               rules={[{ required: true, message: "Vui lòng nhập thể loại" }]}
             >
-              <Input />
+              <Select
+                placeholder="Chọn nhân viên"
+                options={
+                  map(problemIndustries, (industry) => {
+                    return {
+                      label: industry.label,
+                      value: industry.value,
+                    };
+                  }) ?? []
+                }
+              />
             </Form.Item>
           </Col>
           <Col xl={12}>
@@ -214,7 +231,7 @@ const FormProblem = () => {
             </Form.Item>
           </Col>
 
-          {user?.data.role === "superAdmin" && (
+          {user?.data.role === ROLE.SUPER_ADMIN && (
             <Col xl={12}>
               <Form.Item
                 label="Nhân viên"
@@ -228,6 +245,28 @@ const FormProblem = () => {
                       return {
                         label: adminUser.fullName,
                         value: adminUser.id,
+                      };
+                    }) ?? []
+                  }
+                />
+              </Form.Item>
+            </Col>
+          )}
+
+          {user?.data.role === ROLE.SUPER_ADMIN && (
+            <Col xl={12}>
+              <Form.Item
+                label="Khoa"
+                name="departmentId"
+                rules={[{ required: true, message: "Vui lòng chọn nhân viên" }]}
+              >
+                <Select
+                  placeholder="Chọn nhân viên"
+                  options={
+                    map(departments?.data.departments, (department) => {
+                      return {
+                        label: department.name,
+                        value: department.id,
                       };
                     }) ?? []
                   }
