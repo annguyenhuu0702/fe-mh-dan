@@ -1,3 +1,5 @@
+import { IQueryParams } from "./common";
+
 type ProblemDto = {
   adminUserId?: number;
   departmentId?: number;
@@ -9,4 +11,11 @@ type ProblemDto = {
   note: string;
 };
 
-export type { ProblemDto };
+type ProblemQueryParams = IQueryParams & {
+  startDate?: Date;
+  endDate?: Date;
+  departmentId?: number;
+  industry?: string;
+};
+
+export type { ProblemDto, ProblemQueryParams };

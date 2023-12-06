@@ -11,12 +11,20 @@ const Department = lazy(() => import("../pages/Department/Department"));
 const FormDepartment = lazy(() => import("../pages/Department/FormDepartment"));
 const Problem = lazy(() => import("../pages/Problem/Problem"));
 const FormProblem = lazy(() => import("../pages/Problem/FormProblem"));
+const ProblemReportByDepartment = lazy(
+  () => import("../pages/Problem/ProblemReportByDepartment")
+);
 
 const routes: TRoute[] = [
   {
     path: "/login",
     element: Login,
     layout: null,
+  },
+  {
+    path: "/problem-report-department",
+    element: ProblemReportByDepartment,
+    layout: DashboardLayout,
   },
   {
     path: "/employee",

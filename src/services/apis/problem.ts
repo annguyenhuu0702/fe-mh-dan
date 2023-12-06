@@ -1,5 +1,6 @@
-import { ProblemDto } from "../../types/problem";
+import { ProblemDto, ProblemQueryParams } from "../../types/problem";
 import axiosInstance from "../apiConfig";
+import qs from "querystringify";
 
 const getAll = async () => {
   const response = await axiosInstance.get(`/problem`);
@@ -21,9 +22,17 @@ const getById = async (id: string) => {
   return response;
 };
 
+const problemReport = async (payload: ProblemQueryParams) => {
+  const response = await axiosInstance.get(
+    `/problem/report?${qs.stringify(payload)}`
+  );
+  return response;
+};
+
 export const problemApi = {
   getAll,
   create,
   getById,
   update,
+  problemReport,
 };
