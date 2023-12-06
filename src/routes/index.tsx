@@ -66,12 +66,12 @@ const routes: TRoute[] = [
     layout: DashboardLayout,
     subRoutes: [
       {
-        path: "/add",
+        path: "/problem/add",
         element: FormProblem,
         layout: DashboardLayout,
       },
       {
-        path: "/:id",
+        path: "/problem/:id",
         element: FormProblem,
         layout: DashboardLayout,
       },

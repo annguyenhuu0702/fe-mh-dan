@@ -31,7 +31,7 @@ function getItem(
 
 const adminItem = [
   getItem("Phiếu ghi nhận", "/", <FormOutlined />),
-  getItem("Quản lý khoa", "/sub2", <TeamOutlined />, [
+  getItem("Quản lý khoa", "department", <TeamOutlined />, [
     getItem("Danh sách khoa", "/department"),
     getItem("Danh sách nhân viên", "/employee"),
   ]),

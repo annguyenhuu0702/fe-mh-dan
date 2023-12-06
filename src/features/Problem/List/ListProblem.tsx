@@ -85,7 +85,7 @@ const ListProblem = () => {
           type="primary"
           style={{ height: "35px" }}
           onClick={() => {
-            navigate("/add");
+            navigate("/problem/add");
           }}
         >
           Thêm sự cố
@@ -95,7 +95,7 @@ const ListProblem = () => {
         dataSource={problems?.data.problems}
         columns={columns}
         onRow={(record) => {
-          navigate(`/${record.id}`);
+          navigate(`/problem/${record.id}`);
         }}
       />
     </main>
