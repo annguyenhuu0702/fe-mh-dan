@@ -188,7 +188,7 @@ const FormEmployee: React.FC = () => {
           <Col xl={12}>
             <Form.Item
               label="Chức vụ"
-              name="industry"
+              name="role"
               rules={[{ required: true, message: "Vui lòng chọn chức vụ" }]}
             >
               <Select
