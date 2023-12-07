@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, Row, Select, message } from "antd";
 import { isNil, map } from "lodash";
 import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { positionIndustries } from "../../../assets/data";
+import { problemRole } from "../../../assets/data";
 import { adminUserApi } from "../../../services/apis/adminUser";
 import { authApi } from "../../../services/apis/authApi";
 import { departmentApi } from "../../../services/apis/departmentApi";
@@ -26,7 +26,7 @@ const FormEmployee: React.FC = () => {
 
   const { data: departments } = useQuery({
     queryKey: ["departments"],
-    queryFn: () => departmentApi.getAll(),
+    queryFn: () => departmentApi.getAllNoPagination(),
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -175,7 +175,7 @@ const FormEmployee: React.FC = () => {
             >
               <Select
                 options={
-                  map(departments?.data.departments, (department) => {
+                  map(departments?.data, (department) => {
                     return {
                       label: department.name,
                       value: department.id,
@@ -193,10 +193,10 @@ const FormEmployee: React.FC = () => {
             >
               <Select
                 options={
-                  map(positionIndustries, (industry) => {
+                  map(problemRole, (role) => {
                     return {
-                      label: industry.label,
-                      value: industry.value,
+                      label: role.label,
+                      value: role.value,
                     };
                   }) ?? []
                 }

@@ -1,25 +1,16 @@
-import {
-  Button,
-  Col,
-  DatePicker,
-  Form,
-  Input,
-  Row,
-  Select,
-  message,
-} from "antd";
-import { useNavigate, useParams } from "react-router-dom";
-import { authApi } from "../../../services/apis/authApi";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { problemApi } from "../../../services/apis/problem";
+import { Button, Col, Form, Input, Row, Select, message } from "antd";
 import { isNil, map } from "lodash";
-import { ProblemDto } from "../../../types/problem";
 import { useCallback, useEffect, useMemo } from "react";
-import { adminUserApi } from "../../../services/apis/adminUser";
-import moment from "moment";
-import { problemIndustries } from "../../../assets/data";
-import { departmentApi } from "../../../services/apis/departmentApi";
+import { useNavigate, useParams } from "react-router-dom";
+import { problemIndustries, problemReciever } from "../../../assets/data";
 import { ROLE } from "../../../constants/role";
+import { adminUserApi } from "../../../services/apis/adminUser";
+import { authApi } from "../../../services/apis/authApi";
+import { departmentApi } from "../../../services/apis/departmentApi";
+import { problemApi } from "../../../services/apis/problem";
+import { ProblemDto } from "../../../types/problem";
+import { PROBLEM_STATUS } from "../../../constants/problem";
 const FormProblem = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
@@ -31,13 +22,13 @@ const FormProblem = () => {
 
   const { data: adminUsers } = useQuery({
     queryKey: ["adminUsers"],
-    queryFn: () => adminUserApi.getAll(),
+    queryFn: () => adminUserApi.getAllNoPagination(),
     enabled: user?.data?.role === ROLE.SUPER_ADMIN,
   });
 
   const { data: departments } = useQuery({
     queryKey: ["departments"],
-    queryFn: () => departmentApi.getAll(),
+    queryFn: () => departmentApi.getAllNoPagination(),
     enabled: user?.data?.role === ROLE.SUPER_ADMIN,
   });
 
@@ -65,10 +56,10 @@ const FormProblem = () => {
     industry: problem?.data?.industry ?? "",
     contact: problem?.data?.contact ?? "",
     status: problem?.data?.status ?? "",
-    processingDate: moment(problem?.data?.processingDate) ?? moment(),
     note: problem?.data?.note ?? "",
     adminUserId: problem?.data?.adminUserId ?? "",
     departmentId: problem?.data?.departmentId ?? "",
+    reciever: problem?.data?.reciever ?? "",
   };
 
   const handleFinish = useCallback(
@@ -78,8 +69,8 @@ const FormProblem = () => {
         industry: values.industry,
         contact: values.contact,
         status: values.status,
-        processingDate: values.processingDate,
         note: values.note,
+        reciever: values.reciever,
         adminUserId: values.adminUserId ?? user?.data?.id,
         departmentId: values.departmentId ?? user?.data?.departmentId,
       };
@@ -116,7 +107,7 @@ const FormProblem = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const checkRole = useMemo(() => {
+  const checkRoleAdminOrAdminUser = useMemo(() => {
     if (
       user?.data?.role === ROLE.SUPER_ADMIN ||
       problem?.data?.adminUserId === user?.data?.id
@@ -125,6 +116,17 @@ const FormProblem = () => {
     }
     return false;
   }, [problem?.data?.adminUserId, user?.data?.id, user?.data?.role]);
+
+  const checkRoleAdmin = useMemo(() => {
+    if (user?.data?.role === ROLE.SUPER_ADMIN) {
+      return true;
+    }
+    return false;
+  }, [user?.data?.role]);
+  console.log(
+    "🚀 ~ file: FormProblem.tsx:125 ~ checkRoleAdmin ~ checkRoleAdmin:",
+    checkRoleAdmin
+  );
 
   useEffect(() => {
     if (initialValues) {
@@ -185,45 +187,29 @@ const FormProblem = () => {
             </Form.Item>
           </Col>
 
-          <Col xl={12}>
-            <Form.Item
-              label="Trạng thái"
-              name="status"
-              rules={[{ required: true, message: "Vui lòng chọn trạng thái" }]}
-            >
-              <Select
-                placeholder="Chọn nhân viên"
-                options={[
-                  {
-                    label: "Chưa xử lý",
-                    value: "unprocessed",
-                  },
-                  {
-                    label: "Đang xử lý",
-                    value: "processing",
-                  },
-                  {
-                    label: "Đã xử lý",
-                    value: "processed",
-                  },
+          {id && (
+            <Col xl={12}>
+              <Form.Item
+                label="Trạng thái"
+                name="status"
+                rules={[
+                  { required: true, message: "Vui lòng chọn trạng thái" },
                 ]}
-              />
-            </Form.Item>
-          </Col>
-          <Col xl={12}>
-            <Form.Item
-              label="Ngày xử lý"
-              name="processingDate"
-              rules={[{ required: true, message: "Vui lòng chọn ngày xử lý" }]}
-            >
-              <DatePicker
-                style={{
-                  width: "100%",
-                }}
-                placeholder="Chọn thời gian"
-              />
-            </Form.Item>
-          </Col>
+              >
+                <Select
+                  disabled={!checkRoleAdmin}
+                  placeholder="Chọn nhân viên"
+                  options={map(PROBLEM_STATUS, (status) => {
+                    return {
+                      label: status.label,
+                      value: status.value,
+                    };
+                  })}
+                />
+              </Form.Item>
+            </Col>
+          )}
+
           <Col xl={12}>
             <Form.Item label="Chú thích" name="note">
               <Input />
@@ -240,7 +226,7 @@ const FormProblem = () => {
                 <Select
                   placeholder="Chọn nhân viên"
                   options={
-                    map(adminUsers?.data.adminUsers, (adminUser) => {
+                    map(adminUsers?.data, (adminUser) => {
                       return {
                         label: adminUser.fullName,
                         value: adminUser.id,
@@ -262,7 +248,7 @@ const FormProblem = () => {
                 <Select
                   placeholder="Chọn nhân viên"
                   options={
-                    map(departments?.data.departments, (department) => {
+                    map(departments?.data, (department) => {
                       return {
                         label: department.name,
                         value: department.id,
@@ -273,11 +259,33 @@ const FormProblem = () => {
               </Form.Item>
             </Col>
           )}
+          <Col xl={12}>
+            <Form.Item label="Người tiếp nhận" name="reciever">
+              <Select
+                placeholder="Chọn người tiếp nhận"
+                options={
+                  map(problemReciever, (reciever) => {
+                    return {
+                      label: reciever.label,
+                      value: reciever.value,
+                    };
+                  }) ?? []
+                }
+              />
+            </Form.Item>
+          </Col>
         </Row>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           {id ? (
-            <Button type="primary" htmlType="submit" disabled={!checkRole}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={
+                !checkRoleAdminOrAdminUser ||
+                problem?.data?.status === "processed"
+              }
+            >
               Sửa
             </Button>
           ) : (

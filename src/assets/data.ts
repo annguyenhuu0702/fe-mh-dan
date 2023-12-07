@@ -17,7 +17,7 @@ const problemIndustries = [
   },
 ];
 
-const positionIndustries = [
+const problemRole = [
   {
     label: "Nhân viên",
     value: "staff",
@@ -32,4 +32,15 @@ const positionIndustries = [
   },
 ];
 
-export { problemIndustries, positionIndustries };
+const problemReciever = [
+  {
+    label: "Nguyễn Văn A",
+    value: "nguyenvana",
+  },
+  {
+    label: "Nguyễn Văn B",
+    value: "nguyenvanb",
+  },
+];
+
+export { problemIndustries, problemRole, problemReciever };

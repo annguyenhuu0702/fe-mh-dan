@@ -5,6 +5,8 @@ import { problemApi } from "../../../services/apis/problem";
 import { Button } from "antd";
 import { VerticalAlignBottomOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { problemIndustries } from "../../../assets/data";
+import { find } from "lodash";
 
 const ListProblem = () => {
   const navigate = useNavigate();
@@ -16,8 +18,8 @@ const ListProblem = () => {
   const columns = [
     {
       title: "Khoa",
-      dataIndex: "",
-      key: "",
+      dataIndex: "departmentName",
+      key: "departmentName",
     },
     {
       title: "Vấn đề",
@@ -28,11 +30,21 @@ const ListProblem = () => {
       title: "Lãnh vực",
       dataIndex: "industry",
       key: "industry",
+      render: (industry: string) => (
+        <span>
+          {
+            find(
+              problemIndustries,
+              (problemIndustry) => problemIndustry.value === industry
+            )?.label
+          }
+        </span>
+      ),
     },
     {
       title: "Liên hệ",
-      dataIndex: "",
-      key: "",
+      dataIndex: "contact",
+      key: "contact",
     },
     {
       title: "Ngày đề xuất",
@@ -44,13 +56,13 @@ const ListProblem = () => {
     },
     {
       title: "Người đề xuất",
-      dataIndex: "",
-      key: "",
+      dataIndex: "adminUserName",
+      key: "adminUserName",
     },
     {
       title: "Người tiếp nhận",
-      dataIndex: "",
-      key: "",
+      dataIndex: "reciever",
+      key: "reciever",
     },
     {
       title: "Trạng thái",
@@ -72,7 +84,6 @@ const ListProblem = () => {
         return <span>{statusLabel}</span>;
       },
     },
-
   ];
 
   return (

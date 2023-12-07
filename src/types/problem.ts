@@ -7,8 +7,8 @@ type ProblemDto = {
   industry: string;
   contact: string;
   status: string;
-  processingDate: string;
   note: string;
+  reciever: string;
 };
 
 type ProblemQueryParams = IQueryParams & {

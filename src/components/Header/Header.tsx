@@ -1,9 +1,11 @@
 import { Avatar, Popover, Row, Space } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserOutlined } from "@ant-design/icons";
 import "./header.scss";
+import Cookies from "js-cookie";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="rs-header">
       <Row
@@ -38,7 +40,15 @@ const Header = () => {
                         Quản lý tài khoản
                       </div>
                     </Link>
-                    <div className="rs-header-popover-item">Đăng xuất</div>
+                    <div
+                      className="rs-header-popover-item"
+                      onClick={() => {
+                        Cookies.remove("accessToken");
+                        navigate("/login");
+                      }}
+                    >
+                      Đăng xuất
+                    </div>
                   </div>
                 }
               >

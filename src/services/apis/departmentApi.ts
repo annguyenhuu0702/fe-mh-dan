@@ -6,6 +6,11 @@ const getAll = async () => {
   return response;
 };
 
+const getAllNoPagination = async () => {
+  const response = await axiosInstance.get(`/department/no-pagination`);
+  return response;
+};
+
 const create = async (data: DepartmentDto) => {
   const response = await axiosInstance.post(`/department/create`, data);
   return response;
@@ -26,4 +31,5 @@ export const departmentApi = {
   create,
   getById,
   update,
+  getAllNoPagination,
 };
