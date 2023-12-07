@@ -15,32 +15,42 @@ const ListProblem = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: "Khoa",
+      dataIndex: "",
+      key: "",
     },
     {
-      title: "Tên sự cố",
+      title: "Vấn đề",
       dataIndex: "title",
       key: "title",
     },
     {
-      title: "Thể loại",
+      title: "Lãnh vực",
       dataIndex: "industry",
       key: "industry",
     },
     {
-      title: "Ngày dự kiến",
-      dataIndex: "processingDate",
-      key: "processingDate",
-      render: (processingDate: string) => (
-        <span>{moment(processingDate).format("DD/MM/YYYY")}</span>
+      title: "Liên hệ",
+      dataIndex: "",
+      key: "",
+    },
+    {
+      title: "Ngày đề xuất",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (createdAt: string) => (
+        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
       ),
     },
     {
-      title: "Thời gian xử lý (Ngày)",
-      dataIndex: "waitingDate",
-      key: "waitingDate",
+      title: "Người đề xuất",
+      dataIndex: "",
+      key: "",
+    },
+    {
+      title: "Người tiếp nhận",
+      dataIndex: "",
+      key: "",
     },
     {
       title: "Trạng thái",
@@ -62,14 +72,7 @@ const ListProblem = () => {
         return <span>{statusLabel}</span>;
       },
     },
-    {
-      title: "Ngày tạo",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (createdAt: string) => (
-        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
-      ),
-    },
+
   ];
 
   return (

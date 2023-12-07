@@ -3,6 +3,7 @@ import { Button, Col, Form, Input, Row, Select, message } from "antd";
 import { isNil, map } from "lodash";
 import React, { useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { positionIndustries } from "../../../assets/data";
 import { adminUserApi } from "../../../services/apis/adminUser";
 import { authApi } from "../../../services/apis/authApi";
 import { departmentApi } from "../../../services/apis/departmentApi";
@@ -187,10 +188,19 @@ const FormEmployee: React.FC = () => {
           <Col xl={12}>
             <Form.Item
               label="Chức vụ"
-              name="role"
-              rules={[{ required: true, message: "Vui lòng nhập chức vụ" }]}
+              name="industry"
+              rules={[{ required: true, message: "Vui lòng chọn chức vụ" }]}
             >
-              <Input />
+              <Select
+                options={
+                  map(positionIndustries, (industry) => {
+                    return {
+                      label: industry.label,
+                      value: industry.value,
+                    };
+                  }) ?? []
+                }
+              />
             </Form.Item>
           </Col>
         </Row>

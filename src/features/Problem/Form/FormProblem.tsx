@@ -164,7 +164,6 @@ const FormProblem = () => {
               rules={[{ required: true, message: "Vui lòng nhập thể loại" }]}
             >
               <Select
-                placeholder="Chọn nhân viên"
                 options={
                   map(problemIndustries, (industry) => {
                     return {

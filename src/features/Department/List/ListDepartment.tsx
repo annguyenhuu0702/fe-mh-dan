@@ -23,14 +23,6 @@ const ListDepartment = () => {
       dataIndex: "name",
       key: "name",
     },
-    {
-      title: "Ngày tạo",
-      dataIndex: "createdAt",
-      key: "createdAt",
-      render: (createdAt: string) => (
-        <span>{moment(createdAt).format("DD/MM/YYYY")}</span>
-      ),
-    },
   ];
 
   return (

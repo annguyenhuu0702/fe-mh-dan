@@ -17,4 +17,19 @@ const problemIndustries = [
   },
 ];
 
-export { problemIndustries };
+const positionIndustries = [
+  {
+    label: "Nhân viên",
+    value: "staff",
+  },
+  {
+    label: "Bác sĩ",
+    value: "doctor",
+  },
+  {
+    label: "Điều dưỡng",
+    value: "nurse",
+  },
+];
+
+export { problemIndustries, positionIndustries };
