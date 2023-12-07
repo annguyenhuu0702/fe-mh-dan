@@ -14,6 +14,9 @@ const FormProblem = lazy(() => import("../pages/Problem/FormProblem"));
 const ProblemReportByDepartment = lazy(
   () => import("../pages/Problem/ProblemReportByDepartment")
 );
+const ProblemReportIndustry = lazy(
+  () => import("../pages/Problem/ProblemReportByIndustry")
+);
 
 const routes: TRoute[] = [
   {
@@ -26,6 +29,12 @@ const routes: TRoute[] = [
     element: ProblemReportByDepartment,
     layout: DashboardLayout,
   },
+  {
+    path: "/problem-report-industry",
+    element: ProblemReportIndustry,
+    layout: DashboardLayout,
+  },
+
   {
     path: "/employee",
     element: Employee,
