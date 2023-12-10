@@ -14,23 +14,28 @@ interface DynamicTableProps {
   columns: ColumnsType<Column>;
   dataSource: any[];
   onRow?: (record: any) => void;
+  loading?: boolean;
 }
 
 const DynamicTable: React.FC<DynamicTableProps> = ({
   columns,
   dataSource,
   onRow,
+  loading,
 }) => (
-  <Table
-    columns={columns}
-    dataSource={map(dataSource, (item, index) => ({ ...item, key: index }))}
-    pagination={false}
-    onRow={(record) => ({
-      onClick: () => {
-        onRow?.(record);
-      },
-    })}
-  />
+  <section>
+    <Table
+      loading={loading}
+      columns={columns}
+      dataSource={map(dataSource, (item, index) => ({ ...item, key: index }))}
+      pagination={false}
+      onRow={(record) => ({
+        onClick: () => {
+          onRow?.(record);
+        },
+      })}
+    />
+  </section>
 );
 
 export default DynamicTable;

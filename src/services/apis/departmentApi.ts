@@ -1,8 +1,12 @@
+import { IQueryParams } from "../../types/common";
 import { DepartmentDto } from "../../types/department";
 import axiosInstance from "../apiConfig";
+import qs from "querystringify";
 
-const getAll = async () => {
-  const response = await axiosInstance.get(`/department`);
+const getAll = async (params: IQueryParams) => {
+  const response = await axiosInstance.get(
+    `/department?${qs.stringify(params)}`
+  );
   return response;
 };
 
