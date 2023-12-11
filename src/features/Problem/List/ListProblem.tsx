@@ -1,12 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import DynamicTable from "../../../components/DynamicTable";
-import { problemApi } from "../../../services/apis/problem";
-import { Button } from "antd";
 import { VerticalAlignBottomOutlined } from "@ant-design/icons";
-import moment from "moment";
-import { problemIndustries } from "../../../assets/data";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "antd";
 import { find } from "lodash";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import { problemIndustries } from "../../../assets/data";
+import DynamicTable from "../../../components/DynamicTable";
+import StatusTag from "../../../components/StatusTag/StatusTag";
+import { problemApi } from "../../../services/apis/problem";
 
 const ListProblem = () => {
   const navigate = useNavigate();
@@ -69,19 +70,7 @@ const ListProblem = () => {
       dataIndex: "status",
       key: "status",
       render: (status: string) => {
-        let statusLabel = "";
-
-        switch (status) {
-          case "unprocessed":
-            statusLabel = "Chưa xử lý";
-            break;
-          case "processing":
-            statusLabel = "Đang xử lý";
-            break;
-          default:
-            statusLabel = "Đã xử lý";
-        }
-        return <span>{statusLabel}</span>;
+        return <StatusTag status={status} />;
       },
     },
   ];

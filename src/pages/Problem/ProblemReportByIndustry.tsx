@@ -1,19 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Col, DatePicker, Row, Select } from "antd";
 import { find, map } from "lodash";
 import moment from "moment";
 import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { problemIndustries } from "../../assets/data";
 import DynamicTable from "../../components/DynamicTable";
+import StatusTag from "../../components/StatusTag/StatusTag";
 import { problemApi } from "../../services/apis/problem";
+import ModalReportDataProblem from "./ModalReportDataProblem";
 
 const ProblemReportIndustry = () => {
   const { RangePicker } = DatePicker;
-  const navigate = useNavigate();
   const [startDate, setStartDate] = useState<string>();
   const [endDate, setEndDate] = useState<string>();
   const [selectedIndustry, setSelectedIndustry] = useState();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
   const handleChangeDateRange = (formatString: [string, string]) => {
     setStartDate(formatString?.[0]);
@@ -91,19 +93,7 @@ const ProblemReportIndustry = () => {
       dataIndex: "status",
       key: "status",
       render: (status: string) => {
-        let statusLabel = "";
-
-        switch (status) {
-          case "unprocessed":
-            statusLabel = "Chưa xử lý";
-            break;
-          case "processing":
-            statusLabel = "Đang xử lý";
-            break;
-          default:
-            statusLabel = "Đã xử lý";
-        }
-        return <span>{statusLabel}</span>;
+        return <StatusTag status={status} />;
       },
     },
   ];
@@ -146,9 +136,16 @@ const ProblemReportIndustry = () => {
         dataSource={problems?.data}
         columns={columns}
         onRow={(record) => {
-          navigate(`/problem/${record.id}`);
+          queryClient.setQueryData(["problem"], record);
+          setIsModalOpen(true);
         }}
       />
+
+      <ModalReportDataProblem
+        isModalOpen={isModalOpen}
+        onOk={() => setIsModalOpen(false)}
+        onCancel={() => setIsModalOpen(false)}
+      ></ModalReportDataProblem>
     </section>
   );
 };

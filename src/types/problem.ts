@@ -18,4 +18,23 @@ type ProblemQueryParams = IQueryParams & {
   industry?: string;
 };
 
-export type { ProblemDto, ProblemQueryParams };
+type ProblemResponse = {
+  adminUserId: number;
+  adminUserName: string;
+  contact: string;
+  departmentId: number;
+  departmentName: string;
+  id: number;
+  industry: string;
+  note: string;
+  processingDate: string;
+  reciever: string;
+  status: string;
+  title: string;
+  waittingTime: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deleted: Date | null;
+};
+
+export type { ProblemDto, ProblemQueryParams, ProblemResponse };
