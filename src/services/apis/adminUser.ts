@@ -1,9 +1,12 @@
 import { AdminUserDto } from "../../types/adminUser";
+import { IQueryParams } from "../../types/common";
+import qs from "querystringify";
 import axiosInstance from "../apiConfig";
 
-const getAll = async () => {
-  const response = await axiosInstance.get(`/admin-user`);
-  return response;
+
+const getAll = async (params: IQueryParams) => {
+  const response = await axiosInstance.get(`/admin-user?${qs.stringify(params)}`);
+  return response
 };
 
 const getAllNoPagination = async () => {

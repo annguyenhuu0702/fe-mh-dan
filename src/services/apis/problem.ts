@@ -1,9 +1,14 @@
 import { ProblemDto, ProblemQueryParams } from "../../types/problem";
+import { IQueryParams } from "../../types/common";
 import axiosInstance from "../apiConfig";
 import qs from "querystringify";
 
-const getAll = async () => {
-  const response = await axiosInstance.get(`/problem`);
+// file này là đăng kí gọi api, muốn biết đường dẫn nào thì qua router backend xem, không phân trang thì là nopagination
+
+const getAll = async (params: IQueryParams) => {
+  const response = await axiosInstance.get(
+    `/problem?${qs.stringify(params)}`
+  );
   return response;
 };
 

@@ -24,8 +24,9 @@ const PaginationCustom = (props: PaginationCustomProps) => {
       onChange={onChange}
       pageSize={pageSize}
       total={total}
-      hideOnSinglePage={hideOnSinglePage ?? true}
+      hideOnSinglePage={hideOnSinglePage ?? true} //don't hide pagination if page has one page
       showSizeChanger={showSizeChanger ?? false}
+      
     />
   );
 };

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "antd";
-import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
 import DynamicTable from "../../../components/DynamicTable";
 import PaginationCustom from "../../../components/Pagination/Pagination";
 import { departmentApi } from "../../../services/apis/departmentApi";
@@ -9,7 +9,7 @@ import { departmentApi } from "../../../services/apis/departmentApi";
 const ListDepartment = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(1); //muốn 1 trang có bao nhiêu phần tử thì bỏ vào đây
+  const [pageSize, setPageSize] = useState<number>(10); //muốn 1 trang có bao nhiêu phần tử thì bỏ vào đây
   const { data: departments, refetch } = useQuery({
     queryKey: ["departments"],
     queryFn: () =>
@@ -64,6 +64,7 @@ const ListDepartment = () => {
           navigate(`/department/${record.id}`);
         }}
       />
+      <div style={{ marginTop: "5px" }}></div>
       <PaginationCustom
         total={departments?.data?.meta?.total}
         current={page}

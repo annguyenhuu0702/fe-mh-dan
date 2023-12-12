@@ -11,6 +11,9 @@ import { departmentApi } from "../../../services/apis/departmentApi";
 import { problemApi } from "../../../services/apis/problem";
 import { ProblemDto } from "../../../types/problem";
 import { PROBLEM_STATUS } from "../../../constants/problem";
+
+const { TextArea } = Input;
+
 const FormProblem = () => {
   const [form] = Form.useForm();
   const { id } = useParams();
@@ -152,18 +155,18 @@ const FormProblem = () => {
         <Row>
           <Col xl={12}>
             <Form.Item
-              label="Tên sự cố"
+              label="Vấn đề"
               name="title"
-              rules={[{ required: true, message: "Vui lòng nhập tên sự cố" }]}
+              rules={[{ required: true, message: "Vui lòng nhập vấn đề" }]}
             >
               <Input />
             </Form.Item>
           </Col>
           <Col xl={12}>
             <Form.Item
-              label="Thể loại"
+              label="Lãnh vực"
               name="industry"
-              rules={[{ required: true, message: "Vui lòng nhập thể loại" }]}
+              rules={[{ required: true, message: "Vui lòng nhập lãnh vực" }]}
             >
               <Select
                 options={
@@ -179,9 +182,11 @@ const FormProblem = () => {
           </Col>
           <Col xl={12}>
             <Form.Item
-              label="Kết nối"
+              label="Liên hệ"
               name="contact"
-              rules={[{ required: true, message: "Vui lòng nhập kết nối" }]}
+              rules={[
+                { required: true, message: "Vui lòng nhập cách liên hệ" },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -209,12 +214,6 @@ const FormProblem = () => {
               </Form.Item>
             </Col>
           )}
-
-          <Col xl={12}>
-            <Form.Item label="Chú thích" name="note">
-              <Input />
-            </Form.Item>
-          </Col>
 
           {user?.data.role === ROLE.SUPER_ADMIN && (
             <Col xl={12}>
@@ -274,9 +273,15 @@ const FormProblem = () => {
               />
             </Form.Item>
           </Col>
+
+          <Col xl={12}>
+            <Form.Item label="Ghi chú" name="note">
+              <TextArea rows={4} />
+            </Form.Item>
+          </Col>
         </Row>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Form.Item wrapperCol={{ offset: 9, span: 16 }}>
           {id ? (
             <Button
               type="primary"

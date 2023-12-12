@@ -20,9 +20,10 @@ const ProblemReportByDepartment = () => {
 
   const queryClient = useQueryClient();
 
+  // cái này là call api bằng react-query, thay vì useEffect rồi dÙNG REDUX, MẤY CÁI useQuery
   const { data: departments } = useQuery({
     queryKey: ["departments"],
-    queryFn: () => departmentApi.getAll({}),
+    queryFn: () => departmentApi.getAllNoPagination(),
   });
 
   const handleChangeDateRange = (formatString: [string, string]) => {
@@ -114,7 +115,7 @@ const ProblemReportByDepartment = () => {
             style={{ width: "100%" }}
             placeholder="Vui lòng chọn khoa"
             options={
-              map(departments?.data.departments, (department) => ({
+              map(departments?.data, (department) => ({
                 label: department.name,
                 value: department.id,
               })) || []
@@ -144,6 +145,7 @@ const ProblemReportByDepartment = () => {
         dataSource={problems?.data}
         columns={columns}
         onRow={(record: ProblemResponse) => {
+          // CÁI NÀY THÌ NHƯ SETSTATE Á, NHƯNG MÀ LƯU GLOBAL, are you ok?
           queryClient.setQueryData(["problem"], record);
           setIsModalOpen(true);
         }}

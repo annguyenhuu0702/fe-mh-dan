@@ -4,6 +4,18 @@ const problemIndustries = [
     value: "finance",
   },
   {
+    label: "Hành chính",
+    value: "hanhchinh",
+  },
+  {
+    label: "Dược",
+    value: "duoc",
+  },
+  {
+    label: "Vật tư",
+    value: "vattu",
+  },
+  {
     label: "Cận lâm sàng",
     value: "clinical",
   },
@@ -15,6 +27,7 @@ const problemIndustries = [
     label: "Phần mềm",
     value: "software",
   },
+
 ];
 
 const problemRole = [
@@ -34,12 +47,48 @@ const problemRole = [
 
 const problemReciever = [
   {
-    label: "Nguyễn Văn A",
-    value: "nguyenvana",
+    label: "Ngô Quang Quyền",
+    value: "Ngô Quang Quyền",
   },
   {
-    label: "Nguyễn Văn B",
-    value: "nguyenvanb",
+    label: "Nguyễn Trường Giang",
+    value: "Nguyễn Trường Giang",
+  },
+  {
+    label: "Nguyễn Minh Thi",
+    value: "Nguyễn Minh Thi",
+  },
+  {
+    label: "Cao Đức Tài",
+    value: "Cao Đức Tài",
+  },
+  {
+    label: "Huỳnh Thanh Tùng",
+    value: "Huỳnh Thanh Tùng",
+  },
+  {
+    label: "Trần Trọng Phương Trừ",
+    value: "Trần Trọng Phương Trừ",
+  },
+  {
+    label: "Nguyễn Đình Trí",
+    value: "Nguyễn Đình Trí",
+  },
+  {
+    label: "Lê Phú Quí",
+    value: "Lê Phú Quí",
+  },
+  {
+    label: "Trần Anh Kiệt",
+    value: "Trần Anh Kiệt",
+  },
+  {
+    label: "Trần Mặc Khải",
+    value: "Trần Mặc Khải",
+  },
+  {
+    label: "Phạm Minh Hiếu",
+    value: "Phạm Minh Hiếu",
   },
 ];
 
