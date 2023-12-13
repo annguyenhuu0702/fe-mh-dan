@@ -85,6 +85,7 @@ const ListEmployee = () => {
         }}
       />
       <div style={{ marginTop: "5px" }}></div>
+      {/* làm như này nè, còn cái getAllNoPagi kia là api lấy full ko phân trang */}
       <PaginationCustom
         total={adminUsers?.data?.meta?.total}
         current={page}

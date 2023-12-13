@@ -275,7 +275,7 @@ const FormProblem = () => {
           </Col>
 
           <Col xl={12}>
-            <Form.Item label="Ghi chú" name="note">
+            <Form.Item label="Nội dung phản ánh" name="note">
               <TextArea rows={4} />
             </Form.Item>
           </Col>

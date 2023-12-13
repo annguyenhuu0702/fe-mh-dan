@@ -11,7 +11,7 @@ interface ModalCommonProps {
 const ModalCommon = (props: ModalCommonProps) => {
   const { isOpen, onOk, onCancel, children, title } = props;
   return (
-    <Modal title={title} open={isOpen} onOk={onOk} onCancel={onCancel} centered>
+    <Modal title={title} open={isOpen} onOk={onOk} onCancel={onCancel} width={650} centered>
       {children}
     </Modal>
   );

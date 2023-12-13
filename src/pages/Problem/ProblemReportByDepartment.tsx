@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Col, DatePicker, Row, Select } from "antd";
+import { Col, DatePicker, Row, Select, Button } from "antd";
 import { find, map } from "lodash";
 import moment from "moment";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { problemIndustries } from "../../assets/data";
 import DynamicTable from "../../components/DynamicTable";
 import StatusTag from "../../components/StatusTag/StatusTag";
@@ -10,6 +10,8 @@ import { departmentApi } from "../../services/apis/departmentApi";
 import { problemApi } from "../../services/apis/problem";
 import ModalReportDataProblem from "./ModalReportDataProblem";
 import { ProblemResponse } from "../../types/problem";
+import PaginationCustom from "../../components/Pagination/Pagination";
+// hiểu ko? oke 
 
 const ProblemReportByDepartment = () => {
   const { RangePicker } = DatePicker;
@@ -17,10 +19,12 @@ const ProblemReportByDepartment = () => {
   const [endDate, setEndDate] = useState<string>();
   const [selectedDepartment, setSelectedDepartment] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10); 
 
   const queryClient = useQueryClient();
 
-  // cái này là call api bằng react-query, thay vì useEffect rồi dÙNG REDUX, MẤY CÁI useQuery
+  
   const { data: departments } = useQuery({
     queryKey: ["departments"],
     queryFn: () => departmentApi.getAllNoPagination(),
@@ -30,17 +34,21 @@ const ProblemReportByDepartment = () => {
     setStartDate(formatString?.[0]);
     setEndDate(formatString?.[1]);
   };
+  
 
-  const { data: problems, refetch } = useQuery({
+  const { data: problemReport, refetch } = useQuery({
     queryKey: ["problemReport", selectedDepartment, startDate, endDate],
     queryFn: () =>
       problemApi.problemReport({
         startDate: moment(startDate).toDate(),
         endDate: moment(endDate).toDate(),
         departmentId: selectedDepartment,
+        page: page,
+        limit: pageSize
       }),
     enabled: false,
   });
+
 
   const handleConfirmClick = useCallback(() => {
     if (selectedDepartment && startDate && endDate) {
@@ -107,47 +115,66 @@ const ProblemReportByDepartment = () => {
     },
   ];
 
+  const handleChangPage = useCallback((page: number, pageSize: number) => {
+    setPage(page);
+    setPageSize(pageSize);
+  }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [page, pageSize, refetch]);
+
   return (
     <section>
-      <Row gutter={[16, 16]}>
-        <Col xl={8}>
-          <Select
-            style={{ width: "100%" }}
-            placeholder="Vui lòng chọn khoa"
-            options={
-              map(departments?.data, (department) => ({
-                label: department.name,
-                value: department.id,
-              })) || []
-            }
-            onChange={(value) => setSelectedDepartment(value)}
-          />
-        </Col>
-        <Col xl={8}>
-          <RangePicker
-            style={{ width: "100%" }}
-            onChange={(_, formatString: [string, string]) => {
-              handleChangeDateRange(formatString);
-            }}
-          />
-        </Col>
-        <Col xl={8}>
-          <div
-            onClick={() => {
-              handleConfirmClick();
-            }}
-          >
-            Xác nhận
-          </div>
-        </Col>
-      </Row>
+      <div style={{margin: "15px 0"}}>
+        <Row gutter={[16, 16]}>
+          <Col xl={8}>
+            <Select
+              style={{ width: "100%" }}
+              placeholder="Vui lòng chọn khoa"
+              options={
+                map(departments?.data, (department) => ({
+                  label: department.name,
+                  value: department.id,
+                })) || []
+              }
+              onChange={(value) => setSelectedDepartment(value)}
+            />
+          </Col>
+          <Col xl={8}>
+            <RangePicker
+              style={{ width: "100%" }}
+              onChange={(_, formatString: [string, string]) => {
+                handleChangeDateRange(formatString);
+              }}
+            />
+          </Col>
+          <Col xl={8}>
+            <Button
+              onClick={() => {
+                handleConfirmClick();
+              }}
+            >
+              Xác nhận
+            </Button>
+          </Col>
+        </Row>
+      </div>
+
       <DynamicTable
-        dataSource={problems?.data}
+        dataSource={problemReport?.data.data}
         columns={columns}
         onRow={(record: ProblemResponse) => {
-          // CÁI NÀY THÌ NHƯ SETSTATE Á, NHƯNG MÀ LƯU GLOBAL, are you ok?
           queryClient.setQueryData(["problem"], record);
           setIsModalOpen(true);
+        }}
+      />
+       <PaginationCustom
+        total={problemReport?.data?.meta?.total}
+        current={page}
+        pageSize={pageSize}
+        onChange={(page: number, pageSize: number) => {
+          handleChangPage(page, pageSize);
         }}
       />
       <ModalReportDataProblem
