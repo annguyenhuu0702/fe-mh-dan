@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Col, DatePicker, Row, Select } from "antd";
+import { Col, DatePicker, Row, Select, Button } from "antd";
 import { find, map } from "lodash";
 import moment from "moment";
 import { useCallback, useState } from "react";
@@ -100,38 +100,41 @@ const ProblemReportIndustry = () => {
 
   return (
     <section>
-      <Row gutter={[16, 16]}>
-        <Col xl={8}>
-          <Select
-            style={{ width: "100%" }}
-            placeholder="Vui lòng chọn lĩnh vực"
-            options={
-              map(problemIndustries, (industry) => ({
-                label: industry.label,
-                value: industry.value,
-              })) || []
-            }
-            onChange={(value) => setSelectedIndustry(value)}
-          />
-        </Col>
-        <Col xl={8}>
-          <RangePicker
-            style={{ width: "100%" }}
-            onChange={(_, formatString: [string, string]) => {
-              handleChangeDateRange(formatString);
-            }}
-          />
-        </Col>
-        <Col xl={8}>
-          <div
-            onClick={() => {
-              handleConfirmClick();
-            }}
-          >
-            Xác nhận
-          </div>
-        </Col>
-      </Row>
+      <div style={{margin: "15px 0"}}>
+        <Row gutter={[16, 16]}>
+          <Col xl={8}>
+            <Select
+              style={{ width: "100%" }}
+              placeholder="Vui lòng chọn lĩnh vực"
+              options={
+                map(problemIndustries, (industry) => ({
+                  label: industry.label,
+                  value: industry.value,
+                })) || []
+              }
+              onChange={(value) => setSelectedIndustry(value)}
+            />
+          </Col>
+          <Col xl={8}>
+            <RangePicker
+              style={{ width: "100%" }}
+              onChange={(_, formatString: [string, string]) => {
+                handleChangeDateRange(formatString);
+              }}
+            />
+          </Col>
+          <Col xl={8}>
+            <Button
+              onClick={() => {
+                handleConfirmClick();
+              }}
+            >
+              Xác nhận
+            </Button>
+          </Col>
+        </Row>
+      </div>
+
       <DynamicTable
         dataSource={problems?.data}
         columns={columns}

@@ -77,7 +77,7 @@ const Sidebar: React.FC = () => {
         <img
           style={{
             height: "110px",
-            paddingLeft: "40px",
+            paddingLeft: "60px",
           }}
           alt=""
           src="https://res.cloudinary.com/dtvgddjmz/image/upload/v1701245260/Ti%C3%AAu_%C4%91%E1%BB%81_Website_BV_16_-removebg-preview_yjlulq_uk19pi.png"
