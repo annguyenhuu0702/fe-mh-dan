@@ -19,11 +19,10 @@ const ProblemReportByDepartment = () => {
   const [selectedDepartment, setSelectedDepartment] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(10); 
+  const [pageSize, setPageSize] = useState<number>(10);
 
   const queryClient = useQueryClient();
 
-  
   const { data: departments } = useQuery({
     queryKey: ["departments"],
     queryFn: () => departmentApi.getAllNoPagination(),
@@ -43,7 +42,7 @@ const ProblemReportByDepartment = () => {
         endDate: moment(endDate).toDate(),
         departmentId: selectedDepartment,
         page: page,
-        limit: pageSize
+        limit: pageSize,
       }),
     enabled: false,
   });
@@ -125,7 +124,7 @@ const ProblemReportByDepartment = () => {
 
   return (
     <section>
-      <div style={{margin: "15px 0"}}>
+      <div style={{ margin: "15px 0" }}>
         <Row gutter={[16, 16]}>
           <Col xl={8}>
             <Select
@@ -168,7 +167,7 @@ const ProblemReportByDepartment = () => {
           setIsModalOpen(true);
         }}
       />
-       <PaginationCustom
+      <PaginationCustom
         total={problemReport?.data?.meta?.total}
         current={page}
         pageSize={pageSize}

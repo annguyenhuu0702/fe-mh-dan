@@ -47,11 +47,11 @@ const ProblemStatistical = () => {
     if (startDate && endDate) {
       refetch();
     }
-  }, [endDate, startDate, refetch]);
+  }, [endDate, refetch, startDate]);
 
   const totalPoblem = useMemo(() => {
     return reduce(problems?.data, (sum, n) => sum + n.totalProblem, 0);
-  }, [problems?.data, startDate, endDate]);
+  }, [problems?.data]);
 
   return (
     <section>
@@ -75,6 +75,7 @@ const ProblemStatistical = () => {
           </div>
         </Col>
       </Row>
+
       <div>
         <div>
           <h2>Thống kê</h2>
