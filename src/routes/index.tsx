@@ -17,12 +17,18 @@ const ProblemReportByDepartment = lazy(
 const ProblemReportIndustry = lazy(
   () => import("../pages/Problem/ProblemReportByIndustry")
 );
+const ProblemStatistical = lazy(() => import("../pages/ProblemStatistical"));
 
 const routes: TRoute[] = [
   {
     path: "/login",
     element: Login,
     layout: null,
+  },
+  {
+    path: "/statistical",
+    element: ProblemStatistical,
+    layout: DashboardLayout,
   },
   {
     path: "/problem-report-department",
