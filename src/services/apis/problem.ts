@@ -6,9 +6,7 @@ import qs from "querystringify";
 // file này là đăng kí gọi api, muốn biết đường dẫn nào thì qua router backend xem, không phân trang thì là nopagination
 
 const getAll = async (params: IQueryParams) => {
-  const response = await axiosInstance.get(
-    `/problem?${qs.stringify(params)}`
-  );
+  const response = await axiosInstance.get(`/problem?${qs.stringify(params)}`);
   return response;
 };
 
@@ -34,10 +32,18 @@ const problemReport = async (payload: ProblemQueryParams) => {
   return response;
 };
 
+const problemReportStatistical = async (payload: ProblemQueryParams) => {
+  const response = await axiosInstance.get(
+    `/problem/report/statistical?${qs.stringify(payload)}`
+  );
+  return response;
+};
+
 export const problemApi = {
   getAll,
   create,
   getById,
   update,
   problemReport,
+  problemReportStatistical,
 };
