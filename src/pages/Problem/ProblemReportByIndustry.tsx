@@ -22,7 +22,7 @@ const ProblemReportIndustry = () => {
     setEndDate(formatString?.[1]);
   };
 
-  const { data: problems, refetch } = useQuery({
+  const { data: problemReport, refetch } = useQuery({
     queryKey: ["problemReport", selectedIndustry, startDate, endDate],
     queryFn: () =>
       problemApi.problemReport({
@@ -100,7 +100,7 @@ const ProblemReportIndustry = () => {
 
   return (
     <section>
-      <div style={{margin: "15px 0"}}>
+      <div style={{ margin: "15px 0" }}>
         <Row gutter={[16, 16]}>
           <Col xl={8}>
             <Select
@@ -136,7 +136,7 @@ const ProblemReportIndustry = () => {
       </div>
 
       <DynamicTable
-        dataSource={problems?.data}
+        dataSource={problemReport?.data.data}
         columns={columns}
         onRow={(record) => {
           queryClient.setQueryData(["problem"], record);
