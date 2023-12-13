@@ -11,7 +11,6 @@ import { problemApi } from "../../services/apis/problem";
 import ModalReportDataProblem from "./ModalReportDataProblem";
 import { ProblemResponse } from "../../types/problem";
 import PaginationCustom from "../../components/Pagination/Pagination";
-// hiểu ko? oke 
 
 const ProblemReportByDepartment = () => {
   const { RangePicker } = DatePicker;
