@@ -73,7 +73,7 @@ const FormProblem = () => {
         contact: values.contact,
         status: values.status,
         note: values.note,
-        reciever: values.reciever,
+        reciever: values.reciever ?? "",
         adminUserId: values.adminUserId ?? user?.data?.id,
         departmentId: values.departmentId ?? user?.data?.departmentId,
       };
@@ -110,15 +110,6 @@ const FormProblem = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const checkRoleAdminOrAdminUser = useMemo(() => {
-    if (
-      user?.data?.role === ROLE.SUPER_ADMIN ||
-      problem?.data?.adminUserId === user?.data?.id
-    ) {
-      return true;
-    }
-    return false;
-  }, [problem?.data?.adminUserId, user?.data?.id, user?.data?.role]);
 
   const checkRoleAdmin = useMemo(() => {
     if (user?.data?.role === ROLE.SUPER_ADMIN) {
@@ -258,21 +249,24 @@ const FormProblem = () => {
               </Form.Item>
             </Col>
           )}
-          <Col xl={12}>
-            <Form.Item label="Người tiếp nhận" name="reciever">
-              <Select
-                placeholder="Chọn người tiếp nhận"
-                options={
-                  map(problemReciever, (reciever) => {
-                    return {
-                      label: reciever.label,
-                      value: reciever.value,
-                    };
-                  }) ?? []
-                }
-              />
-            </Form.Item>
-          </Col>
+          {user?.data.role === ROLE.SUPER_ADMIN && (
+            // mh muốn cho ẩn cái người tiếp nhận bên phía user á cho thằng superAdmin nhập/ đang ẩn đó
+            <Col xl={12}>
+              <Form.Item label="Người tiếp nhận" name="reciever">
+                <Select
+                  placeholder="Chọn người tiếp nhận"
+                  options={
+                    map(problemReciever, (reciever) => {
+                      return {
+                        label: reciever.label,
+                        value: reciever.value,
+                      };
+                    }) ?? []
+                  }
+                />
+              </Form.Item>
+            </Col>
+          )}
 
           <Col xl={12}>
             <Form.Item label="Nội dung phản ánh" name="note">
@@ -287,7 +281,7 @@ const FormProblem = () => {
               type="primary"
               htmlType="submit"
               disabled={
-                !checkRoleAdminOrAdminUser ||
+                (!checkRoleAdmin && problem?.data?.status === "processing" ) ||
                 problem?.data?.status === "processed"
               }
             >

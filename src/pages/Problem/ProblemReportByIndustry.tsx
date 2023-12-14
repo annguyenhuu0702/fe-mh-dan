@@ -2,12 +2,14 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Col, DatePicker, Row, Select, Button } from "antd";
 import { find, map } from "lodash";
 import moment from "moment";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { problemIndustries } from "../../assets/data";
 import DynamicTable from "../../components/DynamicTable";
 import StatusTag from "../../components/StatusTag/StatusTag";
 import { problemApi } from "../../services/apis/problem";
 import ModalReportDataProblem from "./ModalReportDataProblem";
+import { ProblemResponse } from "../../types/problem";
+import PaginationCustom from "../../components/Pagination/Pagination";
 
 const ProblemReportIndustry = () => {
   const { RangePicker } = DatePicker;
@@ -15,6 +17,8 @@ const ProblemReportIndustry = () => {
   const [endDate, setEndDate] = useState<string>();
   const [selectedIndustry, setSelectedIndustry] = useState();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10); 
   const queryClient = useQueryClient();
 
   const handleChangeDateRange = (formatString: [string, string]) => {
@@ -29,6 +33,8 @@ const ProblemReportIndustry = () => {
         startDate: moment(startDate).toDate(),
         endDate: moment(endDate).toDate(),
         industry: selectedIndustry,
+        page: page,
+        limit: pageSize
       }),
     enabled: false,
   });
@@ -98,6 +104,15 @@ const ProblemReportIndustry = () => {
     },
   ];
 
+  const handleChangPage = useCallback((page: number, pageSize: number) => {
+    setPage(page);
+    setPageSize(pageSize);
+  }, []);
+
+  useEffect(() => {
+    refetch();
+  }, [page, pageSize, refetch]);
+
   return (
     <section>
       <div style={{ margin: "15px 0" }}>
@@ -143,7 +158,14 @@ const ProblemReportIndustry = () => {
           setIsModalOpen(true);
         }}
       />
-
+       <PaginationCustom
+        total={problemReport?.data?.meta?.total}
+        current={page}
+        pageSize={pageSize}
+        onChange={(page: number, pageSize: number) => {
+          handleChangPage(page, pageSize);
+        }}
+      />
       <ModalReportDataProblem
         isModalOpen={isModalOpen}
         onOk={() => setIsModalOpen(false)}

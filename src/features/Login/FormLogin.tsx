@@ -40,9 +40,35 @@ const FormLogin: React.FC = () => {
   };
 
   return (
-    <section style={{display: "flex", justifyContent: "center"}}>
-      <div style={{padding: "60px"}}>
+    <section
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        width: "100%",
+        height: "700px",
+      }}
+    >
+      <div
+        style={{
+          padding: "40px",
+          marginTop: "150px",
+          boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+          height: "400px",
+          borderRadius: "6%",
+        }}
+      >
         <h1 style={{ fontWeight: 800 }}>ĐĂNG NHẬP</h1>
+        <span
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            paddingBottom: "15px",
+            paddingTop: "5px",
+            fontSize: "13px"
+          }}
+        >
+          Đăng nhập tài khoản của bạn
+        </span>
         <Form
           name="login"
           labelCol={{ span: 8 }}
@@ -52,13 +78,13 @@ const FormLogin: React.FC = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           layout="vertical"
+          style={{ width: "300px" }}
         >
           <Form.Item
             label="Tên đăng nhập"
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
-            style={{width: "300px"}}
-            
+            style={{ width: "400px" }}
           >
             <Input style={{ width: "300px", height: "40px" }} />
           </Form.Item>
@@ -67,12 +93,16 @@ const FormLogin: React.FC = () => {
             label="Mật khẩu"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
+            style={{ width: "400px" }}
           >
             <Input.Password style={{ width: "300px", height: "40px" }} />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          <Form.Item
+            wrapperCol={{ offset: 8, span: 16 }}
+            style={{ marginTop: "30px" }}
+          >
+            <Button type="primary" htmlType="submit" style={{ height: "40px" }}>
               Đăng nhập
             </Button>
           </Form.Item>

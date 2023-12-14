@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Col, DatePicker, DatePickerProps, Row, Tag } from "antd";
+import { Col, DatePicker, DatePickerProps, Row, Tag, Button } from "antd";
 import {
   CategoryScale,
   Chart,
@@ -55,26 +55,28 @@ const ProblemStatistical = () => {
 
   return (
     <section>
-      <Row gutter={[16, 16]}>
-        <Col xl={8}>
-          <DatePicker
-            onChange={onChange}
-            picker="month"
-            style={{
-              width: "100%",
-            }}
-          />
-        </Col>
-        <Col xl={8}>
-          <div
-            onClick={() => {
-              handleConfirmClick();
-            }}
-          >
-            Xác nhận
-          </div>
-        </Col>
-      </Row>
+      <div style={{margin: "10px 0"}}>
+        <Row gutter={[16, 16]}>
+          <Col xl={8}>
+            <DatePicker
+              onChange={onChange}
+              picker="month"
+              style={{
+                width: "100%",
+              }}
+            />
+          </Col>
+          <Col xl={8}>
+            <Button
+              onClick={() => {
+                handleConfirmClick();
+              }}
+            >
+              Xác nhận
+            </Button>
+          </Col>
+        </Row>
+      </div>
 
       <div>
         <div>

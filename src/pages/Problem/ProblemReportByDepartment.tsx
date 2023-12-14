@@ -32,6 +32,7 @@ const ProblemReportByDepartment = () => {
     setStartDate(formatString?.[0]);
     setEndDate(formatString?.[1]);
   };
+  
 
   const { data: problemReport, refetch } = useQuery({
     queryKey: ["problemReport", selectedDepartment, startDate, endDate],
@@ -45,6 +46,7 @@ const ProblemReportByDepartment = () => {
       }),
     enabled: false,
   });
+
 
   const handleConfirmClick = useCallback(() => {
     if (selectedDepartment && startDate && endDate) {
